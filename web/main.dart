@@ -1,12 +1,13 @@
 import 'dart:html';
 import 'package:csv/csv.dart';
 import 'dart:convert';
+import 'dart:math';
 
 
 var canvas = document.querySelector('canvas') as CanvasElement ;
 var ctx = canvas.getContext('2d') as CanvasRenderingContext2D ;
 var newEl = [];
-
+const double pi = 3.1415926535897932;
 
 
  void processText(String file){
@@ -53,10 +54,70 @@ void drawLine(x, y, len){
   ;
 }
 
+void cerchio(num x, num y, len){
+  var centro = Point(500,500);
+  var p;
+  //num x = 0;
+  //num y = 0;
+  for(num i=0.0; i<360; i = i + 3){
+    if(i%2==0)
+    {
+      x = centro.x + 400 * cos((i*pi)/180);
+      y = centro.y + 400 * sin((i*pi)/180);
+      p = Point(x,y);
+      ctx
+        ..beginPath()
+        ..rect(p.x,p.y,len+10,2)
+        ..stroke()
+        ..closePath();
+    }
+  }
+}
+
+void drawCircle(){
+  var centro = Point(500,500);
+  var p;
+  num x = 0;
+  num y = 0;
+  // x = centro.x + 250 * cos(((360)*pi)/180);
+  // y = centro.y + 250 * sin(((360)*pi)/180);
+  // p = Point(x,y);
+  // ctx
+  //   ..beginPath()
+  //   ..rect(p.x,p.y,2,2)
+  //   ..stroke()
+  //   ..closePath();
+  for(num i=0.0; i<360; i = i + 3){
+    // if((70<i && i<110 && i%2==0)){
+    //   x = centro.x + 250 * cos(((i)*pi)/180);
+    //   y = centro.y + 250 * sin(((i)*pi)/180);
+    //   p = Point(x,y);
+    //   ctx
+    //     ..beginPath()
+    //     ..rect(p.x,p.y,20,2)
+    //     ..stroke()
+    //     ..closePath();
+    // }else if(70<i && i<110){
+    //
+    // }else
+    if(i%2==0)
+    {
+    x = centro.x + 400 * cos((i*pi)/180);
+    y = centro.y + 400 * sin((i*pi)/180);
+    p = Point(x,y);
+    ctx
+      ..beginPath()
+      ..fillText("Ciao", p.x, p.y)
+      //..rect(p.x,p.y,25,2)
+      ..stroke()
+      ..closePath();}}
+}
+
 void main() {
 //path csv
 //  String file = "Alice.csv";
+  drawCircle();
 //HttpRequest
-  var request = HttpRequest.getString("Alice.txt").then(processText);
+  //var request = HttpRequest.getString("Alice.txt").then(processText);
 
 }
