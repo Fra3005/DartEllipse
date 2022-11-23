@@ -25,6 +25,7 @@ var newEl = [];
  }
 
 
+
 void drawLines(var width, var height, CanvasRenderingContext2D ctx,
     int nLines, int maxCharsPerLine, int linenumber, String line){
   // print ("ho ricevuto i parametri del canvas: " + width.toString() + ", " + height.toString());
