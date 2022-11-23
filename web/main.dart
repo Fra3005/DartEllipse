@@ -26,12 +26,12 @@ const double pi = 3.1415926535897932;
  }
 
 
-
 void drawLines(var width, var height, CanvasRenderingContext2D ctx,
     int nLines, int maxCharsPerLine, int linenumber, String line){
   // print ("ho ricevuto i parametri del canvas: " + width.toString() + ", " + height.toString());
   int posY = height ~/ nLines * (linenumber + 1);
   var segmentLength = width / maxCharsPerLine;
+  
   // var tokens = line.split(" ");
   for (int i = 0; i < line.length; i++){
     int posX = (segmentLength * i).toInt();
@@ -59,7 +59,7 @@ void cerchio(num x, num y, len){
   var p;
   //num x = 0;
   //num y = 0;
-  for(num i=0.0; i<360; i = i + 3){
+  for(num i=0; i<360; i = i + 3){
     if(i%2==0)
     {
       x = centro.x + 400 * cos((i*pi)/180);
@@ -112,6 +112,7 @@ void drawCircle(){
       ..stroke()
       ..closePath();}}
 }
+
 
 void main() {
 //path csv
