@@ -15,24 +15,24 @@ const double pi = 3.1415926535897932;
    var lines = file.split("\n");
    int nLines = lines.length;
 
-   //TODO: convertire in foreach per + prestazioni
+   //Take max length of array
    for (int i = 0; i < nLines; i++) {
      if (lines[i].length > maxCharsPerLine) maxCharsPerLine = lines[i].length;
    }
 
+   //Recall function drawlines for each line
    for (int i = 0; i < nLines; i++) {
-     drawLines(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, i, lines[i]);
+    //  drawLines(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, i, lines[i]);
+    drawCircle(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, i, lines[i]);
    }
  }
 
-
+//Draw line calculating for each time height and width
 void drawLines(var width, var height, CanvasRenderingContext2D ctx,
     int nLines, int maxCharsPerLine, int linenumber, String line){
-  // print ("ho ricevuto i parametri del canvas: " + width.toString() + ", " + height.toString());
   int posY = height ~/ nLines * (linenumber + 1);
   var segmentLength = width / maxCharsPerLine;
   
-  // var tokens = line.split(" ");
   for (int i = 0; i < line.length; i++){
     int posX = (segmentLength * i).toInt();
     if (line[i] != " ") drawLine(posX, posY, segmentLength);
@@ -54,28 +54,31 @@ void drawLine(x, y, len){
   ;
 }
 
-void cerchio(num x, num y, len){
-  var centro = Point(500,500);
-  var p;
-  //num x = 0;
-  //num y = 0;
-  for(num i=0; i<360; i = i + 3){
-    if(i%2==0)
-    {
-      x = centro.x + 400 * cos((i*pi)/180);
-      y = centro.y + 400 * sin((i*pi)/180);
-      p = Point(x,y);
-      ctx
-        ..beginPath()
-        ..rect(p.x,p.y,len+10,2)
-        ..stroke()
-        ..closePath();
-    }
-  }
-}
+// void cerchio(num x, num y, len){
+//   var centro = Point(500,500);
+//   var p;
+//   //num x = 0;
+//   //num y = 0;
+//   for(num i=0; i<360; i = i + 3){
+//     if(i%2==0)
+//     {
+//       x = centro.x + 400 * cos((i*pi)/180);
+//       y = centro.y + 400 * sin((i*pi)/180);
+//       p = Point(x,y);
+//       ctx
+//         ..beginPath()
+//         ..rect(p.x,p.y,len+10,2)
+//         ..stroke()
+//         ..closePath();
+//     }
+//   }
+// }
 
-void drawCircle(){
+void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
+    int nLines, int maxCharsPerLine, int linenumber, String line){
   var centro = Point(500,500);
+  var segmentLength = width / maxCharsPerLine;
+
   var p;
   num x = 0;
   num y = 0;
@@ -105,20 +108,25 @@ void drawCircle(){
     x = centro.x + 400 * cos((i*pi)/180);
     y = centro.y + 400 * sin((i*pi)/180);
     p = Point(x,y);
-    ctx
-      ..beginPath()
-      ..fillText("Ciao", p.x, p.y)
-      //..rect(p.x,p.y,25,2)
-      ..stroke()
-      ..closePath();}}
+    drawLine(x, y, segmentLength);
+    // ctx
+    //   ..beginPath()
+    //   ..fillText("Ciao", p.x, p.y)
+    //   ..rect(p.x,p.y,25,2)
+    //   ..stroke()
+    //   ..closePath();
+      }
+      }
 }
 
 
 void main() {
 //path csv
+
 //  String file = "Alice.csv";
-  drawCircle();
+  // drawCircle(var width, var height, CanvasRenderingContext2D ctx,
+  //   int nLines, int maxCharsPerLine, int linenumber, String line);
 //HttpRequest
-  //var request = HttpRequest.getString("Alice.txt").then(processText);
+  var request = HttpRequest.getString("Alice.txt").then(processText);
 
 }
