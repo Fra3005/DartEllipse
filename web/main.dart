@@ -24,7 +24,7 @@ const double pi = 3.1415926535897932;
    for (int i = 0; i < nLines; i++) {
     //  drawLines(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, i, lines[i]);
     drawCircle(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, i, lines[i]);
-   }
+  }//
  }
 
 //Draw line calculating for each time height and width
@@ -32,7 +32,7 @@ void drawLines(var width, var height, CanvasRenderingContext2D ctx,
     int nLines, int maxCharsPerLine, int linenumber, String line){
   int posY = height ~/ nLines * (linenumber + 1);
   var segmentLength = width / maxCharsPerLine;
-  
+
   for (int i = 0; i < line.length; i++){
     int posX = (segmentLength * i).toInt();
     if (line[i] != " ") drawLine(posX, posY, segmentLength);
