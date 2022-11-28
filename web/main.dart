@@ -23,24 +23,47 @@ const double pi = 3.1415926535897932;
     drawCircle(canvas.width, canvas.height, ctx, nLines, maxCharsPerLine, lines);
  }
 
- void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
-   int nLines, int maxCharsPerLine, var lines){
-   var segmentLength = width / maxCharsPerLine;
-   var check = 0;
-   num lun = 0;
-   List<Point> punti = [];
-   createPoint(punti);
-   for(int i=0; i < punti.length;i++){
-     check = lines[i].length;
-     lun = width/ check;
-     print("W " + width.toString());
-     print("C " + check.toString());
-     print("L " + lun.toString());
-     drawLine(punti[i].x, punti[i].y, segmentLength, lun);
-   }
- }
+void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
+  int nLines, int maxCharsPerLine, var testo){
+  var segmentLength = width / maxCharsPerLine;
+  var check = 0;
+  num lun = 0;
+  var index = 0;
+  var riga = 0;
+  List<Point> punti = [];
+  createPoint(punti);
+  for(int i=0; i < punti.length;i++){
+    riga = checkSpace(testo, index);
+    check = testo[riga].length;
+    lun = width/ check;
+    // print("W " + width.toString());
+    // print("C " + check.toString());
+    // print("L " + lun.toString());
+    drawLine(punti[i].x, punti[i].y, segmentLength, lun);
+    index++;
+  }
+}
+
+int checkSpace(var testo, var index){
+  bool flag = true;
+  var i = index;
+  while(flag == true){
+    if(testo[i].length > 1){
+      flag = false;
+    }else{
+      i++;
+    }
+  }
+  return i;
+}
 
 void drawLine(x, y, maxlen, len){
+  //TODO adesso tagliamo le parole per un amigliore rappresentazione
+  //in realtà dovremmo adattare la lunghezza delle righe al canvas e al raggio del cerchio
+  //più le fraasi sono lunghe, piu il cerchio risulterà largo ma adattato al canvas 
+   if(len > 50){
+     len = 50;
+  }
   ctx
     ..beginPath()
     ..lineWidth = 3
@@ -56,7 +79,7 @@ void createPoint(var punti){
   var centro = Point(500,500);
   num x = 0;
   num y = 0;
-  for(num i = 0.0; i<360; i = i+3)
+  for(num i = 0.0; i<360; i = i+2)
   {
     if(i%2==0){
       x = centro.x + 400 * cos((i*pi)/180);
