@@ -9,7 +9,6 @@ var ctx = canvas.getContext('2d') as CanvasRenderingContext2D ;
 var newEl = [];
 const double pi = 3.1415926535897932;
 
-
  void processText(String file){
    int maxCharsPerLine = 0;
    var lines = file.split("\n");
@@ -31,7 +30,7 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   var index = 0;
   var riga = 0;
   List<Point> punti = [];
-  createPoint(punti, 360/testo.length);
+  createPoint(punti, 360/testo.length, width, height);
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index);
     check = testo[riga].length;
@@ -66,7 +65,7 @@ void drawLine(x, y, maxlen, len){
   }
   ctx
     ..beginPath()
-    ..lineWidth = 1
+    ..lineWidth = 0.5
     ..moveTo(x, y)
     ..lineTo(x + len, y)
     ..lineCap = 'round'
@@ -75,8 +74,8 @@ void drawLine(x, y, maxlen, len){
   ;
 }
 
-void createPoint(var punti, var dim){
-  var centro = Point(500,500);
+void createPoint(var punti, var dim,int w,int h){
+  var centro = Point(w/2,h/2);
   num x = 0;
   num y = 0;
   for(num i = 0.0; i<360; i = i+dim)
@@ -97,6 +96,6 @@ void main() {
   // drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   //   int nLines, int maxCharsPerLine, int linenumber, String line);
 //HttpRequest
-  var request = HttpRequest.getString("testo.txt").then(processText);
+  var request = HttpRequest.getString("Alice.txt").then(processText);
 
 }
