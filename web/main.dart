@@ -31,7 +31,7 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   var index = 0;
   var riga = 0;
   List<Point> punti = [];
-  createPoint(punti);
+  createPoint(punti, 360/testo.length);
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index);
     check = testo[riga].length;
@@ -60,13 +60,13 @@ int checkSpace(var testo, var index){
 void drawLine(x, y, maxlen, len){
   //TODO adesso tagliamo le parole per un amigliore rappresentazione
   //in realtà dovremmo adattare la lunghezza delle righe al canvas e al raggio del cerchio
-  //più le fraasi sono lunghe, piu il cerchio risulterà largo ma adattato al canvas 
+  //più le fraasi sono lunghe, piu il cerchio risulterà largo ma adattato al canvas
    if(len > 50){
      len = 50;
   }
   ctx
     ..beginPath()
-    ..lineWidth = 3
+    ..lineWidth = 1
     ..moveTo(x, y)
     ..lineTo(x + len, y)
     ..lineCap = 'round'
@@ -75,18 +75,19 @@ void drawLine(x, y, maxlen, len){
   ;
 }
 
-void createPoint(var punti){
+void createPoint(var punti, var dim){
   var centro = Point(500,500);
   num x = 0;
   num y = 0;
-  for(num i = 0.0; i<360; i = i+2)
+  for(num i = 0.0; i<360; i = i+dim)
   {
-    if(i%2==0){
+    //if(i%2==0){
       x = centro.x + 400 * cos((i*pi)/180);
       y = centro.y + 400 * sin((i*pi)/180);
       punti.add(Point(x,y));
-    }
+    //}
   }
+  print(punti.length);
 }
 
 void main() {
@@ -96,6 +97,6 @@ void main() {
   // drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   //   int nLines, int maxCharsPerLine, int linenumber, String line);
 //HttpRequest
-  var request = HttpRequest.getString("Alice.txt").then(processText);
+  var request = HttpRequest.getString("testo.txt").then(processText);
 
 }
