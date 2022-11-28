@@ -14,6 +14,7 @@ const double pi = 3.1415926535897932;
    var lines = file.split("\n");
    int nLines = lines.length;
 
+
    //Take max length of array
    for (int i = 0; i < nLines; i++) {
      if (lines[i].length > maxCharsPerLine) maxCharsPerLine = lines[i].length;
@@ -31,6 +32,7 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   var riga = 0;
   List<Point> punti = [];
   createPoint(punti, 360/testo.length, width, height);
+
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index);
     check = testo[riga].length;
@@ -47,7 +49,7 @@ int checkSpace(var testo, var index){
   bool flag = true;
   var i = index;
   while(flag == true){
-    if(testo[i].length > 1){
+    if(testo[i].length > 0){
       flag = false;
     }else{
       i++;
