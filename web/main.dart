@@ -7,6 +7,7 @@ import 'dart:math';
 var canvas = document.querySelector('canvas') as CanvasElement ;
 var ctx = canvas.getContext('2d') as CanvasRenderingContext2D ;
 var newEl = [];
+
 const double pi = 3.1415926535897932;
 
  void processText(String file){
@@ -100,17 +101,34 @@ void createPoint(var punti, var dim,int w,int h){
   }
 }
 
-void main() {
-  var request = HttpRequest.getString("Alice.txt").then(processText);
 
-  var actualBtn = document.getElementById('actual-btn');
-
-  var fileChosen = document.getElementById('file-chosen');
-
-  var file = actualBtn?.addEventListener('change', (event) => fileChosen?.innerText = "Caricato");
-  
-
+void handlefile(file){
+   var request = HttpRequest.getString(file?.name).then(processText);
 }
 
+//TODO vedere come mai non tutti i txt caricano e gestire concorrenza nome
+void setName(name, actualBtn, fileChosen){
+  actualBtn?.addEventListener('change', (event) => fileChosen?.innerText = name);
+}
+
+void main() {
+
+InputElement uploadInput = (document.getElementById('actual-btn')) as InputElement;
+var actualBtn = document.getElementById('actual-btn');
+
+var fileChosen = document.getElementById('file-chosen');
+
+
+  uploadInput.onChange.listen((e) {
+
+    final files = uploadInput.files;
+    if (files?.length == 1) {
+      var file = files?[0];
+      final reader = new FileReader();
+       handlefile(file);
+       setName(file?.name, actualBtn, fileChosen);
+    }
+  });
+}
 
 
