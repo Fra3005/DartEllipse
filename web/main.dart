@@ -24,26 +24,42 @@ const double pi = 3.1415926535897932;
 
 void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   int nLines, int maxCharsPerLine, var testo){
-  var segmentLength = width / maxCharsPerLine;
+  //var segmentLength = width / maxCharsPerLine;
   var check = 0;
-  num lun = 0;
   var index = 0;
   var riga = 0;
+  var lunghezzaTesto = 0;
   List<Point> punti = [];
-  createPoint(punti, 360/testo.length, width, height);
+  lunghezzaTesto = calcolaDimTesto(testo);
+  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/100))), width, height);
   for(int i=0; i < punti.length;i++){
-    riga = checkSpace(testo, index);
+    riga = checkSpace(testo, index, testo.length);
+    print(riga);
     check = testo[riga].length;
-    lun = width/ check;
+    // if(check > 30){
+    //   check = 30;
+    // }
+    //lun = width/ check;
     // print("W " + width.toString());
     // print("C " + check.toString());
     // print("L " + lun.toString());
-    drawLine(punti[i].x, punti[i].y, segmentLength, lun);
+    drawLine(punti[i].x, punti[i].y, check, i);
+    index=riga;
     index++;
   }
 }
 
-int checkSpace(var testo, var index){
+int calcolaDimTesto(testo){
+  var dim = 0;
+  for(int i = 0; i<testo.length; i++){
+    if(testo[i] != ""){
+      dim++;
+    }
+  }
+  return dim;
+}
+
+int checkSpace(var testo, var index, var maxTesto){
   bool flag = true;
   var i = index;
   while(flag == true){
@@ -56,16 +72,21 @@ int checkSpace(var testo, var index){
   return i;
 }
 
-void drawLine(x, y, maxlen, len){
+void drawLine(x, y,len, indice){
   //TODO adesso tagliamo le parole per un amigliore rappresentazione
   //in realtà dovremmo adattare la lunghezza delle righe al canvas e al raggio del cerchio
   //più le fraasi sono lunghe, piu il cerchio risulterà largo ma adattato al canvas
-   if(len > 50){
-     len = 50;
+  if(len > 80){
+      len = 80;
+  }
+  if(indice%2==0){
+    ctx.strokeStyle = 'orange';
+  }else{
+    ctx.strokeStyle = 'black';
   }
   ctx
     ..beginPath()
-    ..lineWidth = 0.5
+    ..lineWidth = 0.2
     ..moveTo(x, y)
     ..lineTo(x + len, y)
     ..lineCap = 'round'
@@ -86,7 +107,6 @@ void createPoint(var punti, var dim,int w,int h){
       punti.add(Point(x,y));
     //}
   }
-  print(punti.length);
 }
 
 void main() {
