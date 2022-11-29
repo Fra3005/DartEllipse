@@ -32,7 +32,7 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   var lunghezzaTesto = 0;
   List<Point> punti = [];
   lunghezzaTesto = calcolaDimTesto(testo);
-  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/100))), width, height);
+  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height);
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index, testo.length);
     print(riga);
@@ -93,7 +93,7 @@ void createPoint(var punti, var dim,int w,int h){
   var centro = Point(w/2,h/2);
   num x = 0;
   num y = 0;
-  for(num i = 0.0; i<360; i = i+dim)
+  for(num i = -90.0; i<270; i = i+dim)
   {
     //if(i%2==0){
       x = centro.x + 400 * cos((i*pi)/180);
