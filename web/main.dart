@@ -104,6 +104,6 @@ void createPoint(var punti, var dim,int w,int h){
 }
 
 void main() {
-  var request = HttpRequest.getString("libro.txt").then(processText);
+  var request = HttpRequest.getString("Alice.txt").then(processText);
 
 }
