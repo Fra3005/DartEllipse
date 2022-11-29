@@ -35,7 +35,6 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height);
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index, testo.length);
-    print(riga);
     check = testo[riga].length;
     drawLine(punti[i].x, punti[i].y, check, i);
     index=riga;
@@ -95,16 +94,23 @@ void createPoint(var punti, var dim,int w,int h){
   num y = 0;
   for(num i = -90.0; i<270; i = i+dim)
   {
-    //if(i%2==0){
       x = centro.x + 400 * cos((i*pi)/180);
-      y = centro.y + 400 * sin((i*pi)/180);
+      y = centro.y + 200 * sin((i*pi)/180);
       punti.add(Point(x,y));
-    //}
   }
 }
 
 void main() {
   var request = HttpRequest.getString("Alice.txt").then(processText);
 
+  var actualBtn = document.getElementById('actual-btn');
+
+  var fileChosen = document.getElementById('file-chosen');
+
+  var file = actualBtn?.addEventListener('change', (event) => fileChosen?.innerText = "Caricato");
+  
+
 }
+
+
 
