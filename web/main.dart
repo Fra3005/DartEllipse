@@ -37,13 +37,6 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
     riga = checkSpace(testo, index, testo.length);
     print(riga);
     check = testo[riga].length;
-    // if(check > 30){
-    //   check = 30;
-    // }
-    //lun = width/ check;
-    // print("W " + width.toString());
-    // print("C " + check.toString());
-    // print("L " + lun.toString());
     drawLine(punti[i].x, punti[i].y, check, i);
     index=riga;
     index++;
@@ -80,11 +73,11 @@ void drawLine(x, y,len, indice){
   if(len > 80){
       len = 80;
   }
-  if(indice%2==0){
-    ctx.strokeStyle = 'orange';
-  }else{
-    ctx.strokeStyle = 'black';
-  }
+  // if(indice%2==0){
+  //   ctx.strokeStyle = 'orange';
+  // }else{
+  //   ctx.strokeStyle = 'black';
+  // }
   ctx
     ..beginPath()
     ..lineWidth = 0.2
@@ -111,12 +104,6 @@ void createPoint(var punti, var dim,int w,int h){
 }
 
 void main() {
-//path csv
-
-//  String file = "Alice.csv";
-  // drawCircle(var width, var height, CanvasRenderingContext2D ctx,
-  //   int nLines, int maxCharsPerLine, int linenumber, String line);
-//HttpRequest
   var request = HttpRequest.getString("Alice.txt").then(processText);
 
 }
