@@ -73,14 +73,14 @@ void drawLine(x, y,len, indice){
   if(len > 80){
       len = 80;
   }
-  // if(indice%2==0){
-  //   ctx.strokeStyle = 'orange';
-  // }else{
-  //   ctx.strokeStyle = 'black';
-  // }
+  if(len > 50){
+     ctx.strokeStyle = 'grey'; //yellowgreen
+  }else{
+     ctx.strokeStyle = 'white'; //olive
+  }
   ctx
     ..beginPath()
-    ..lineWidth = 0.2
+    ..lineWidth = 0.5
     ..moveTo(x, y)
     ..lineTo(x + len, y)
     ..lineCap = 'round'
@@ -104,6 +104,6 @@ void createPoint(var punti, var dim,int w,int h){
 }
 
 void main() {
-  var request = HttpRequest.getString("Alice.txt").then(processText);
+  var request = HttpRequest.getString("libro.txt").then(processText);
 
 }
