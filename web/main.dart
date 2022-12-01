@@ -10,6 +10,7 @@ var newEl = [];
 
 const double pi = 3.1415926535897932;
 
+
  void processText(String file){
    int maxCharsPerLine = 0;
    var lines = file.split("\n");
@@ -33,7 +34,7 @@ void drawCircle(var width, var height, CanvasRenderingContext2D ctx,
   var lunghezzaTesto = 0;
   List<Point> punti = [];
   lunghezzaTesto = calcolaDimTesto(testo);
-  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height);
+  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height); //, (lunghezzaTesto+(lunghezzaTesto/30))
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index, testo.length);
     check = testo[riga].length;
@@ -91,14 +92,19 @@ void drawLine(x, y,len, indice){
 
 void createPoint(var punti, var dim,int w,int h){
   var centro = Point(w/2,h/2);
+  var a = w/3;
+  var b = w/5;
   num x = 0;
   num y = 0;
-  for(num i = -90.0; i<270; i = i+dim)
+  for(num i = -180 ; i<180; i = i + dim) //num i = 0 * pi; i< lun*pi; i = i + dim (ellisse --> num i = -180 ; i< 180; i = i + dim, cerchio --> num i = -90 ; i< 270; i = i + dim)
   {
-      x = centro.x + 400 * cos((i*pi)/180);
-      y = centro.y + 200 * sin((i*pi)/180);
+       //x = centro.x + 400 * cos((i*pi)/180);
+       //y = centro.y + 400 * sin((i*pi)/180);
+       x = centro.x - (a*sin((i*pi)/180));
+       y = centro.y + (b*cos((i*pi)/180));
       punti.add(Point(x,y));
   }
+  print(punti.length);
 }
 
 
@@ -113,22 +119,22 @@ void setName(name, actualBtn, fileChosen){
 
 void main() {
 
-InputElement uploadInput = (document.getElementById('actual-btn')) as InputElement;
-var actualBtn = document.getElementById('actual-btn');
+var request = HttpRequest.getString("Alice.txt").then(processText);
 
-var fileChosen = document.getElementById('file-chosen');
-
-
-  uploadInput.onChange.listen((e) {
-
-    final files = uploadInput.files;
-    if (files?.length == 1) {
-      var file = files?[0];
-      final reader = new FileReader();
-       handlefile(file);
-       setName(file?.name, actualBtn, fileChosen);
-    }
-  });
+// InputElement uploadInput = (document.getElementById('actual-btn')) as InputElement;
+// var actualBtn = document.getElementById('actual-btn');
+//
+// var fileChosen = document.getElementById('file-chosen');
+//
+//
+//   uploadInput.onChange.listen((e) {
+//
+//     final files = uploadInput.files;
+//     if (files?.length == 1) {
+//       var file = files?[0];
+//       final reader = new FileReader();
+//        handlefile(file);
+//        setName(file?.name, actualBtn, fileChosen);
+//     }
+//   });
 }
-
-

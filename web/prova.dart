@@ -36,7 +36,7 @@ for (var i = 0 * pi ; i < 2 * pi; i += 0.01 ) {
     var xPos = xCentre - (a * cos(i));
     var yPos = yCentre + (b * sin(i));
     if (i == 0) {
-      
+
         ctx.moveTo(xPos, yPos);
     } else {
         ctx.lineTo(xPos, yPos);
