@@ -15,7 +15,6 @@ const double pi = 3.1415926535897932;
    var lines = file.split("\n");
    int nLines = lines.length;
 
-  //Take max length of array
   for (int i = 0; i < nLines; i++) {
     if (lines[i].length > maxCharsPerLine) maxCharsPerLine = lines[i].length;
   }
@@ -24,15 +23,14 @@ const double pi = 3.1415926535897932;
 }
 
 void drawCircle(var width, var height, CanvasRenderingContext2D ctx, int nLines,
-    int maxCharsPerLine, var testo) {
-  //var segmentLength = width / maxCharsPerLine;
+  int maxCharsPerLine, var testo) {
   var check = 0;
   var index = 0;
   var riga = 0;
   var lunghezzaTesto = 0;
   List<Point> punti = [];
   lunghezzaTesto = calcolaDimTesto(testo);
-  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height); //, (lunghezzaTesto+(lunghezzaTesto/30))
+  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height);
   for(int i=0; i < punti.length;i++){
     riga = checkSpace(testo, index, testo.length);
     check = testo[riga].length;
@@ -71,9 +69,9 @@ void drawLine(x, y, len, indice) {
     len = 80;
   }
   if (len > 50) {
-    ctx.strokeStyle = 'grey'; //yellowgreen
+    ctx.strokeStyle = 'grey';
   } else {
-    ctx.strokeStyle = 'white'; //olive
+    ctx.strokeStyle = 'white';
   }
   ctx
     ..beginPath()
@@ -88,36 +86,35 @@ void drawLine(x, y, len, indice) {
 void createPoint(var punti, var dim,int w,int h){
   var centro = Point(w/2,h/2);
   var a = w/3;
-  var b = w/5;
+  var b = h/5;
   num x = 0;
   num y = 0;
-  for(num i = -180 ; i<180; i = i + dim) //num i = 0 * pi; i< lun*pi; i = i + dim (ellisse --> num i = -180 ; i< 180; i = i + dim, cerchio --> num i = -90 ; i< 270; i = i + dim)
+  for(num i = -180 ; i<180; i = i + dim)
   {
-       //x = centro.x + 400 * cos((i*pi)/180);
-       //y = centro.y + 400 * sin((i*pi)/180);
        x = centro.x - (a*sin((i*pi)/180));
        y = centro.y + (b*cos((i*pi)/180));
       punti.add(Point(x,y));
   }
-  print(punti.length);
 }
 
-void handlefile(file) {
-  ctx.clearRect ( 0 , 0 , 1000 , 1000 );
+
+void handlefile(file, w, h) {
+  ctx.clearRect( 0 , 0 , w , h );
   var request = HttpRequest.getString(file + ".txt").then(processText);
 }
-//TODO vedere come mai non tutti i txt caricano e gestire concorrenza nome
 void setName(name, actualBtn, fileChosen) {
   actualBtn?.addEventListener(
       'change', (event) => fileChosen?.innerText = name);
 }
 
 void main() {
+  var w = canvas.width;
+  var h = canvas.height;
   InputElement uploadInput =
-      (document.getElementById('actual-btn')) as InputElement;
+    (document.getElementById('actual-btn')) as InputElement;
   SelectElement uploadElement =
-      (document.getElementById('select-id')) as SelectElement;
-  
+    (document.getElementById('select-id')) as SelectElement;
+
 
   var actualBtn = document.getElementById('actual-btn');
 
@@ -129,16 +126,16 @@ void main() {
       var file = files?[0];
       final reader = new FileReader();
       var name = file?.name.split(".");
-       handlefile(name?[0]);
+      handlefile(name?[0], w, h);
       uploadElement.value = name?[0];
-      
+
     }
   });
 
   uploadElement.onChange.listen(
     (event) {
       var name = uploadElement.value;
-      handlefile(name);
+      handlefile(name, w, h);
     },
   );
 }
