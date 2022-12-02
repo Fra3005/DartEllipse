@@ -108,25 +108,10 @@ void setName(name, actualBtn, fileChosen) {
 void main() {
   var w = canvas.width;
   var h = canvas.height;
-  InputElement uploadInput =
-      (document.getElementById('actual-btn')) as InputElement;
   SelectElement uploadElement =
       (document.getElementById('select-id')) as SelectElement;
 
-  var actualBtn = document.getElementById('actual-btn');
-
   var fileChosen = document.getElementById('file-chosen');
-
-  uploadInput.onChange.listen((e) {
-    final files = uploadInput.files;
-    if (files?.length == 1) {
-      var file = files?[0];
-      final reader = new FileReader();
-      var name = file?.name.split(".");
-      handlefile(name?[0], w, h);
-      uploadElement.value = name?[0];
-    }
-  });
 
   uploadElement.onChange.listen(
     (event) {
