@@ -9,11 +9,10 @@ var newEl = [];
 
 const double pi = 3.1415926535897932;
 
-
- void processText(String file){
-   int maxCharsPerLine = 0;
-   var lines = file.split("\n");
-   int nLines = lines.length;
+void processText(String file) {
+  int maxCharsPerLine = 0;
+  var lines = file.split("\n");
+  int nLines = lines.length;
 
   for (int i = 0; i < nLines; i++) {
     if (lines[i].length > maxCharsPerLine) maxCharsPerLine = lines[i].length;
@@ -23,15 +22,16 @@ const double pi = 3.1415926535897932;
 }
 
 void drawCircle(var width, var height, CanvasRenderingContext2D ctx, int nLines,
-  int maxCharsPerLine, var testo) {
+    int maxCharsPerLine, var testo) {
   var check = 0;
   var index = 0;
   var riga = 0;
   var lunghezzaTesto = 0;
   List<Point> punti = [];
   lunghezzaTesto = calcolaDimTesto(testo);
-  createPoint(punti, (360/(lunghezzaTesto+(lunghezzaTesto/30))), width, height);
-  for(int i=0; i < punti.length;i++){
+  createPoint(
+      punti, (360 / (lunghezzaTesto + (lunghezzaTesto / 30))), width, height);
+  for (int i = 0; i < punti.length; i++) {
     riga = checkSpace(testo, index, testo.length);
     check = testo[riga].length;
     drawLine(punti[i].x, punti[i].y, check, i);
@@ -64,7 +64,6 @@ int checkSpace(var testo, var index, var maxTesto) {
 }
 
 void drawLine(x, y, len, indice) {
-
   if (len > 80) {
     len = 80;
   }
@@ -83,25 +82,24 @@ void drawLine(x, y, len, indice) {
     ..closePath();
 }
 
-void createPoint(var punti, var dim,int w,int h){
-  var centro = Point(w/2,h/2);
-  var a = w/3;
-  var b = h/5;
+void createPoint(var punti, var dim, int w, int h) {
+  var centro = Point(w / 2, h / 2);
+  var a = w / 3;
+  var b = h / 5;
   num x = 0;
   num y = 0;
-  for(num i = -180 ; i<180; i = i + dim)
-  {
-       x = centro.x - (a*sin((i*pi)/180));
-       y = centro.y + (b*cos((i*pi)/180));
-      punti.add(Point(x,y));
+  for (num i = -180; i < 180; i = i + dim) {
+    x = centro.x - (a * sin((i * pi) / 180));
+    y = centro.y + (b * cos((i * pi) / 180));
+    punti.add(Point(x, y));
   }
 }
 
-
 void handlefile(file, w, h) {
-  ctx.clearRect( 0 , 0 , w , h );
+  ctx.clearRect(0, 0, w, h);
   var request = HttpRequest.getString(file + ".txt").then(processText);
 }
+
 void setName(name, actualBtn, fileChosen) {
   actualBtn?.addEventListener(
       'change', (event) => fileChosen?.innerText = name);
@@ -111,10 +109,9 @@ void main() {
   var w = canvas.width;
   var h = canvas.height;
   InputElement uploadInput =
-    (document.getElementById('actual-btn')) as InputElement;
+      (document.getElementById('actual-btn')) as InputElement;
   SelectElement uploadElement =
-    (document.getElementById('select-id')) as SelectElement;
-
+      (document.getElementById('select-id')) as SelectElement;
 
   var actualBtn = document.getElementById('actual-btn');
 
@@ -128,7 +125,6 @@ void main() {
       var name = file?.name.split(".");
       handlefile(name?[0], w, h);
       uploadElement.value = name?[0];
-
     }
   });
 
